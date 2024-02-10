@@ -1,8 +1,9 @@
 ason {
 
-atoms = asonatom spacesasonatom* spaces
-
-spacesasonatom = spaces asonatom
+chars = char+
+char =
+  | asonatom -- asonatom
+  | any -- other
 
 asonatom =
   | date_and_time_and_timezone
@@ -55,7 +56,7 @@ decimal = european_decimal_floating_point | decimal_floating_point
 european_decimal_floating_point = int "," int
 decimal_floating_point = int "." int
 integer = int
-hex = "#" hdigit hdigit hdigit hdigit
+hex = "#" hdigit+
 
 string = dq notDQ* dq
 long_string = sq sq notSQ* sq sq

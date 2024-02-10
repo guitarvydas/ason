@@ -1,52 +1,52 @@
 ason {
 
-atoms [asonatom spacesasonatom* spaces] = ‛«asonatom»«spacesasonatom»«spaces»’
-
-spacesasonatom [spaces asonatom] = ‛«spaces»«asonatom»’
-
+chars [char+] = ‛«char»’
+char_asonatom [a] = ‛«a»’
+char_other [c] = ‛«c»’
+  
 asonatom [x] = ‛«x»’
   
-date_and_time_and_timezone [date _colon1 time _colon2 timezone] = ‛«date»«_colon1»«time»«_colon2»«timezone»’
-date_and_time [date _colon time] = ‛«date»«_colon»«time»’
-date [year _colon1 month _colon2 day] = ‛«year»«_colon1»«month»«_colon2»«day»’
-time [twodigits1 _colon1 twodigits2 _colon2 twodigits3] = ‛«twodigits1»«_colon1»«twodigits2»«_colon2»«twodigits3»’
+date_and_time_and_timezone [date _colon1 time _colon2 timezone] = ‛(date-and-time-and-timezone «date» «time» «timezone»)’
+date_and_time [date _colon time] = ‛(date-and-time «date» «time»)’
+date [year _colon1 month _colon2 day] = ‛(date «year» «month» «day»)’
+time [twodigits1 _colon1 twodigits2 _colon2 twodigits3] = ‛(time «twodigits1» «twodigits2» «twodigits3»)’
                                                
-timezone [twoOrOneDigits _colon twodigits] = ‛«twoOrOneDigits»«_colon»«twodigits»’
+timezone [twoOrOneDigits _colon twodigits] = ‛(timezone «twoOrOneDigits» «twodigits»)’
 twoOrOneDigits [x] = ‛«x»’
-pair [int1 _x int2] = ‛«int1»«_x»«int2»’
-range [int1 _dotdot int2] = ‛«int1»«_dotdot»«int2»’
-tuple [int1 _dot1 int2 _dot2 int3] = ‛«int1»«_dot1»«int2»«_dot2»«int3»’
-currency [_dollar decimal] = ‛«_dollar»«decimal»’
+pair [int1 _x int2] = ‛(pair «int1» «int2»)’
+range [int1 _dotdot int2] = ‛(range «int1» «int2»)’
+tuple [int1 _dot1 int2 _dot2 int3] = ‛(tuple «int1» «int2» «int3»)’
+currency [_dollar decimal] = ‛(currency «decimal»)’
 decimal [x] = ‛«x»’
-european_decimal_floating_point [int1 _comma int2] = ‛«int1»«_comma»«int2»’
-decimal_floating_point [int1 _dot int2] = ‛«int1»«_dot»«int2»’
-integer [x] = ‛«x»’
-hex [_octo hdigit1 hdigit2 hdigit3 hdigit4] = ‛«_octo»«hdigit1»«hdigit2»«hdigit3»«hdigit4»’
+european_decimal_floating_point [int1 _comma int2] = ‛(european-decimal-floating-point «int1» «int2»)’
+decimal_floating_point [int1 _dot int2] = ‛(decimal-floating-point «int1» «int2»)’
+integer [x] = ‛(int «x»)’
+hex [_octo hexdigits+] = ‛(hex "«hexdigits»")’
 
-string [dq1 notDQ* dq2] = ‛«dq1»«notDQ»«dq2»’
-long_string [sq1 sq2 notSQ* sq3 sq4] = ‛«sq1»«sq2»«notSQ»«sq3»«sq4»’
-htmltag [_lb notTAG* _rb] = ‛«_lb»«notTAG»«_rb»’
-path [_pct notWS*] = ‛«_pct»«notWS»’
-url [sym _css] = ‛«sym»«_css»’
-email [sym _at symOrDot] = ‛«sym»«_at»«symOrDot»’
+string [dq1 notDQ* dq2] = ‛(string "«notDQ»")’
+long_string [sq1 sq2 notSQ* sq3 sq4] = ‛(long-string "«notSQ»")’
+htmltag [_lb notTAG* _rb] = ‛(html-tag "«notTAG»")’
+path [_pct notWS*] = ‛(path "«notWS»")’
+url [sym _css] = ‛(url "«sym»")’
+email [sym _at symOrDot] = ‛(email "«sym»@«symOrDot»")’
 symOrDot [x] = ‛«x»’
-binary_hex [_octo dq1 hdigit+ dq2] = ‛«_octo»«dq1»«hdigit»«dq2»’
-binary_b64 [_octo1 _octo2 dq1 b64digit+ dq2] = ‛«_octo1»«_octo2»«b64digit»«dq2»’
-word [x] = ‛«x»’
-defword [sym _colon] = ‛«sym»«_colon»’
-getword [_colon sym] = ‛«_colon»«sym»’
-symbol [sq sym] = ‛«sq»«sym»’
-selector [_dot sym] = ‛«_dot»«sym»’
-refinement [_slash sym] = ‛«_slash»«sym»’
-true [x] = ‛«x»’
-false [x] = ‛«x»’
-none [x]  =‛«x»’
-litstring [x] = ‛«x»’
-nan [x] = ‛«x»’
-field [sym1 _dot sym2] = ‛«sym1»«_dot»«sym2»’
-set_field [sym1 _dot sym2 _colon] = ‛«sym1»«_dot»«sym2»«_colon»’
-get_field [_colon sym1 _dot sym2] = ‛«_colon»«sym1»«_dot»«sym2»’
-frefinement [sym1 _slash sym2] = ‛«sym1»«_slash»«sym2»’
+binary_hex [_octo dq1 hexdigits+ dq2] = ‛(binary-hex "«hexdigits»")’
+binary_b64 [_octo1 _octo2 dq1 b64digit+ dq2] = ‛(binary-b64 "«b64digit»")’
+word [x] = ‛(word "«x»")’
+defword [sym _colon] = ‛(def-word "«sym»")’
+getword [_colon sym] = ‛(get-word "«sym»")’
+symbol [sq sym] = ‛(symbol "«sym»")’
+selector [_dot sym] = ‛(selector "«sym»")’
+refinement [_slash sym] = ‛(refinement "«sym»")’
+true [x] = ‛(true)’
+false [x] = ‛(false)’
+none [x]  =‛(none)’
+litstring [x] = ‛(litstring)’
+nan [x] = ‛(nan)’
+field [sym1 _dot sym2] = ‛(field «sym1» «sym2»)’
+set_field [sym1 _dot sym2 _colon] = ‛(set-field «sym1» «sym2»)’
+get_field [_colon sym1 _dot sym2] = ‛(get-field «sym1» «sym2»)’
+frefinement [sym1 _slash sym2] = ‛(frefinement «sym1» «sym2»)’
 
 
   year [x] = ‛«x»’
