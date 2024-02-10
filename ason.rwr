@@ -1,0 +1,100 @@
+ason {
+
+atoms = asonatom (spaces asonatom)* spaces
+
+asonatom =
+  | date_and_time_and_timezone
+  | date_and_time
+  | date
+  | time
+  | tuple
+  | decimal_floating_point
+  | european_decimal_floating_point
+  | currency
+  | range
+  | pair
+  | hex
+  | integer
+  | string
+  | long_string
+  | htmltag
+  | path
+  | url
+  | email
+  | binary_hex
+  | binary_b64
+  | set_field
+  | field
+  | get_field
+  | frefinement
+  | defword
+  | getword
+  | symbol
+  | selector
+  | refinement
+  | true
+  | false
+  | none
+  | litstring
+  | nan
+  | word
+  
+date_and_time_and_timezone = date "-" time "-" timezone
+date_and_time = date "-" time
+date = year "-" month "-" day
+time = twodigits ":" twodigits ":" twodigits
+timezone = (twodigits | onedigit) ":" twodigits
+pair = int "x" int
+range = int ".." int
+tuple = int "." int "." int
+currency = "$" decimal
+decimal = european_decimal_floating_point | decimal_floating_point
+european_decimal_floating_point = int "," int
+decimal_floating_point = int "." int
+integer = int
+hex = "#" hdigit hdigit hdigit hdigit
+
+string = dq notDQ* dq
+long_string = sq sq notSQ* sq sq
+htmltag = "<" notTAG* ">"
+path = "%" notWS*
+url = sym "://"
+email = sym "@" (sym | ".")
+binary_hex = "#" dq hdigit+ dq
+binary_b64 = "#" "#" dq b64digit+ dq
+word = sym
+defword = sym ":"
+getword = ":" sym
+symbol = sq sym
+selector = "." sym
+refinement = "/" sym
+true = "@true"
+false = "@false"
+none = "@none"
+litstring = "@string"
+nan = "@nan"
+field = sym "." sym
+set_field = sym "." sym ":"
+get_field = ":" sym "." sym
+frefinement = sym "/" sym
+
+
+  year = fourdigits
+  month = twodigits | onedigit
+  day = twodigits | onedigit
+
+    int = digit+
+    fourdigits = digit digit digit digit
+    twodigits = digit digit
+    onedigit = digit
+    sym = letter (letter | digit | "_")*
+    dq = "\""
+    sq = "'"
+    notDQ = ~dq any
+    notSQ = ~sq any
+    notTAG = ~"<" ~">" any
+    hdigit = "0" .. "9" | "A" .. "F" | "a" .. "f"
+    b64digit = "0" .. "9" | "A" .. "Z" | "a" .. "z" | "+" | "/" | "="
+    notWS = ~space any
+
+}
