@@ -2,7 +2,7 @@ LIBSRC=0D/odin/std
 ODIN_FLAGS ?= -debug -o:none
 D2J=0d/das2json/das2json
 
-dev: clean run
+dev: repo clean run
 
 run: ason transpile.drawio.json
 	./ason main ason.drawio $(LIBSRC)/transpile.drawio
@@ -18,3 +18,6 @@ transpile.drawio.json: $(LIBSRC)/transpile.drawio
 
 clean:
 	rm -rf ason ason.dSYM *~ *.json
+
+repo:
+	(cd 0D ; git pull)

@@ -12,11 +12,11 @@
                 "id": 13
             },
             {
-                "name": "Unencode",
+                "name": "Undo Normalization",
                 "id": 16
             },
             {
-                "name": "Encode Strings",
+                "name": "Normalize",
                 "id": 18
             }
         ],
@@ -42,7 +42,7 @@
                 },
                 "source_port": "",
                 "target": {
-                    "name": "Unencode",
+                    "name": "Undo Normalization",
                     "id": 16
                 },
                 "target_port": ""
@@ -55,7 +55,7 @@
                 },
                 "source_port": "",
                 "target": {
-                    "name": "Encode Strings",
+                    "name": "Normalize",
                     "id": 18
                 },
                 "target_port": ""
@@ -63,7 +63,7 @@
             {
                 "dir": 1,
                 "source": {
-                    "name": "Encode Strings",
+                    "name": "Normalize",
                     "id": 18
                 },
                 "source_port": "",
@@ -102,7 +102,7 @@
             {
                 "dir": 2,
                 "source": {
-                    "name": "Unencode",
+                    "name": "Undo Normalization",
                     "id": 16
                 },
                 "source_port": "",
@@ -115,7 +115,7 @@
             {
                 "dir": 2,
                 "source": {
-                    "name": "Unencode",
+                    "name": "Undo Normalization",
                     "id": 16
                 },
                 "source_port": "\u2717",
@@ -128,7 +128,7 @@
             {
                 "dir": 2,
                 "source": {
-                    "name": "Encode Strings",
+                    "name": "Normalize",
                     "id": 18
                 },
                 "source_port": "\u2717",
@@ -323,16 +323,32 @@
     },
     {
         "file": "ason.drawio",
-        "name": "Encode Strings",
+        "name": "Normalize",
         "children": [
-
+            {
+                "name": "Javascript Normalize",
+                "id": 8
+            }
         ],
         "connections": [
             {
-                "dir": 3,
+                "dir": 0,
                 "source": {
                     "name": "",
                     "id": 0
+                },
+                "source_port": "",
+                "target": {
+                    "name": "Javascript Normalize",
+                    "id": 8
+                },
+                "target_port": ""
+            },
+            {
+                "dir": 2,
+                "source": {
+                    "name": "Javascript Normalize",
+                    "id": 8
                 },
                 "source_port": "",
                 "target": {
@@ -340,12 +356,25 @@
                     "id": 0
                 },
                 "target_port": ""
+            },
+            {
+                "dir": 2,
+                "source": {
+                    "name": "Javascript Normalize",
+                    "id": 8
+                },
+                "source_port": "\u2717",
+                "target": {
+                    "name": "",
+                    "id": 0
+                },
+                "target_port": "\u2717"
             }
         ]
     },
     {
         "file": "ason.drawio",
-        "name": "Unencode",
+        "name": "Undo Normalization",
         "children": [
 
         ],
