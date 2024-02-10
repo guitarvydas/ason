@@ -2,7 +2,7 @@ ason {
 
 atoms [asonatom spacesasonatom* spaces] = ‛«asonatom»«spacesasonatom»«spaces»’
 
-spacesasonatom [spaces asonatom] = ‛«spaces»«asontaom»’
+spacesasonatom [spaces asonatom] = ‛«spaces»«asonatom»’
 
 asonatom [x] = ‛«x»’
   
