@@ -10,7 +10,7 @@ main :: proc() {
 }
 
 start_function :: proc (main_container : ^zd.Eh) {
-    s := zd.new_datum_string ("test.ason")
+    s := zd.new_datum_string ("little-test.ason")
     msg := zd.make_message("", s, zd.make_cause (main_container, nil) )
     main_container.handler(main_container, msg)
 }
