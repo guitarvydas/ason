@@ -18,7 +18,6 @@ asonatom =
   | pair
   | hex
   | integer
-  | string
   | long_string
   | htmltag
   | path
@@ -40,7 +39,6 @@ asonatom =
   | none
   | litstring
   | nan
-  | word
   
 date_and_time_and_timezone = date "-" time "-" timezone
 date_and_time = date "-" time
