@@ -1,100 +1,70 @@
 ason {
 
-atoms = asonatom (spaces asonatom)* spaces
+atoms = asonatom spacesasonatom* spaces
 
-asonatom =
-  | date_and_time_and_timezone
-  | date_and_time
-  | date
-  | time
-  | tuple
-  | decimal_floating_point
-  | european_decimal_floating_point
-  | currency
-  | range
-  | pair
-  | hex
-  | integer
-  | string
-  | long_string
-  | htmltag
-  | path
-  | url
-  | email
-  | binary_hex
-  | binary_b64
-  | set_field
-  | field
-  | get_field
-  | frefinement
-  | defword
-  | getword
-  | symbol
-  | selector
-  | refinement
-  | true
-  | false
-  | none
-  | litstring
-  | nan
-  | word
+spacesasonatom [spaces asonatom] = ‛«spaces»«asontaom»’
+
+asonatom [x] = ‛«x»’
   
-date_and_time_and_timezone = date "-" time "-" timezone
-date_and_time = date "-" time
-date = year "-" month "-" day
-time = twodigits ":" twodigits ":" twodigits
-timezone = (twodigits | onedigit) ":" twodigits
-pair = int "x" int
-range = int ".." int
-tuple = int "." int "." int
-currency = "$" decimal
-decimal = european_decimal_floating_point | decimal_floating_point
-european_decimal_floating_point = int "," int
-decimal_floating_point = int "." int
-integer = int
-hex = "#" hdigit hdigit hdigit hdigit
+date_and_time_and_timezone [date _colon1 time _colon2 timezone] = ‛«date»«_colon1»«time»«_colon2»«timezone»’
+date_and_time [date _colon time] = ‛«date»«_colon»«time»’
+date [year _colon1 month _colon2 day] = ‛«year»«_colon1»«month»«_colon2»«day»’
+time [twodigits1 _colon1 twodigits2 _colon2 twodigits3] = ‛«twodigits1»«_colon1»«twodigits2»«_colon2»«twodigits3»
+timezone [twoOrOneDigits _colon twodigits] = ‛«twoOrOneDigits»«_colon»«twodigits»’
+twoOrOneDigits [x] = ‛«x»’
+pair [int1 _x int2] = ‛«int1»«_x»«int2»’
+range [int1 _dotdot int2] = ‛«int1»«_dotdot»«int2»’
+tuple [int1 _dot1 int2 _dot2 int3] = ‛«int1»«_dot1»«int2»«_dot2»«int3»’
+currency [_dollar decimal] = ‛«_dollar»«decimal»’
+decimal [x] = ‛«x»’
+european_decimal_floating_point [int1 _comma int2] = ‛«int1»«_comma»«int2»’
+decimal_floating_point [int1 _dot int2] = ‛«int1»«_dot»«int2»’
+integer [x] = ‛«x»’
+hex [_octo hdigit1 hdigit2 hdigit3 hdigit4] = ’«_octo»«hdigit1»«hdigit2»«hdigit3»«hdigit4»’
 
-string = dq notDQ* dq
-long_string = sq sq notSQ* sq sq
-htmltag = "<" notTAG* ">"
-path = "%" notWS*
-url = sym "://"
-email = sym "@" (sym | ".")
-binary_hex = "#" dq hdigit+ dq
-binary_b64 = "#" "#" dq b64digit+ dq
-word = sym
-defword = sym ":"
-getword = ":" sym
-symbol = sq sym
-selector = "." sym
-refinement = "/" sym
-true = "@true"
-false = "@false"
-none = "@none"
-litstring = "@string"
-nan = "@nan"
-field = sym "." sym
-set_field = sym "." sym ":"
-get_field = ":" sym "." sym
-frefinement = sym "/" sym
+string [dq1 notDQ* dq2] = ‛«dq1»«notDQ»«dq2»’
+long_string [sq1 sq2 notSQ* sq3 sq4] = ‛«sq1»«sq2»«notSQ»«sq3»«sq4»’
+htmltag [_lb notTAG* _rb] = ‛«_lb»«notTAG»«_rb»’
+path [_pct notWS*] = ‛«_pct»«notWS»’
+url [sym _css] = ‛«sym»«_css»’
+email [sym _at symOrDot] = ‛«sym»«_at»«symOrDot»’
+symOrDot [x] = ‛«x»’
+binary_hex [_octo dq1 hdigit+ dq2] = ‛«_octo»«dq1»«hdigit»«dq2»’
+binary_b64 [_octo1 _octo2 dq1 b64digit+ dq2] = ‛«_octo1»«_octo2»«b64digit»«dq2»’
+word [x] = ‛«x»’
+defword [sym _colon] = ‛«sym»«_colon»’
+getword [_colon sym] = ‛«_colon»«sym»’
+symbol [sq sym] = ‛«sq»«sym»’
+selector [_dot sym] = ‛«_dot»«sym»’
+refinement [_slash sym] = ‛«_slash»«sym»’
+true [x] = ‛«x»’
+false [x] = ‛«x»’ = ‛«»
+none [x]  =‛«x»’ = ‛«»
+litstring [x] = ‛«x»’
+nan [x] = ‛«x»’
+field [sym1 _dot sym2] = ‛«sym1»«_dot»«sy2»’
+set_field [sym1 _dot sym2 _colon] = ‛«sym1»«_dot»«sym2»«_colon»’
+get_field [_colon sym1 _dot sym2] = ‛«_colon»«sym1»«_dot»«sym2»’
+frefinement [sym1 _slash sym2] = ‛«sym1»«_slash»«sym2»’
 
 
-  year = fourdigits
-  month = twodigits | onedigit
-  day = twodigits | onedigit
+  year [x] = ‛«x»’
+  month [x] = ‛«x»’
+  day [x] = ‛«x»’
 
-    int = digit+
-    fourdigits = digit digit digit digit
-    twodigits = digit digit
-    onedigit = digit
-    sym = letter (letter | digit | "_")*
-    dq = "\""
-    sq = "'"
-    notDQ = ~dq any
-    notSQ = ~sq any
-    notTAG = ~"<" ~">" any
-    hdigit = "0" .. "9" | "A" .. "F" | "a" .. "f"
-    b64digit = "0" .. "9" | "A" .. "Z" | "a" .. "z" | "+" | "/" | "="
-    notWS = ~space any
+    int [x+] = ‛«x»’
+    fourdigits [digit1 digit2 digit3 digit4] = ‛«digit1»«digit2»«digit3»«digit4»’
+    twodigits [digit1 digit2] = ‛«digit1»«digit2»’
+    onedigit [x] = ‛«x»’
+    sym [letter symrest*] = ‛«letter»«symrest»’
+    symrest [x] = ‛«x»’
+    dq [x] = ‛«x»’
+    sq [x] = ‛«x»’
+    notDQ [x] = ‛«x»’
+    notSQ [x] = ‛«x»’
+    notTAG [x] = ‛«x»’
+    hdigit [x] = ‛«x»’
+    b64digit [x] = ‛«x»’
+    notWS [x] = ‛«x»’
 
 }
