@@ -6,6 +6,7 @@ char =
   | any -- other
 
 asonatom =
+  | sym
   | string
   | date_and_time_and_timezone
   | date_and_time
@@ -57,13 +58,19 @@ decimal_floating_point = int "." int
 integer = int
 hex = "#" hdigit+
 
-string = dq notDQ* dq
+string = opendq notStringDQ* closedq
 long_string = sq sq notSQ* sq sq
 htmltag = "<" notTAG* ">"
 path = "%" notWS*
 url = sym "://"
-email = sym "@" sym dotSym*
-dotSym = "." sym
+
+email = sym "@" nonSeparator+
+nonSeparator =
+  | ~space ~separator string -- string
+  | ~space ~separator sym -- sym
+  | ~space ~separator any -- other
+separator = "(" | ")" | "@" | "'" | ","
+
 binary_hex = "#" dq hdigit+ dq
 binary_b64 = "#" "#" dq b64digit+ dq
 word = sym
@@ -95,8 +102,11 @@ frefinement = sym "/" sym
     notSymBracket =
       | "❲" notSymBracket+ "❳" -- rec
       | ~"❳" any -- other
+    opendq = "“"
+    closedq = "”"
     dq = "\""
     sq = "'"
+    notStringDQ = ~opendq ~closedq any
     notDQ = ~dq any
     notSQ = ~sq any
     notTAG = ~"<" ~">" any
